@@ -1,0 +1,14 @@
+
+# Binaries output directories.
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+[Oo]bj/
+[Vv]studio/
+
+# Windows batch scripts.
+*.bat
+
+# Premake generated make files.
+Makefile
+*.make
