@@ -7,19 +7,19 @@
 #include "uuid.hpp"
 
 namespace uuids {
-	
-	template <typename _UniformRandomNumberGenerator = ::std::default_random_engine>
+
+	template <typename UniformRandomNumberGenerator = ::std::default_random_engine>
 	class random_uuid_generator {
-		typedef typename _UniformRandomNumberGenerator::result_type result_type;
-		
-		typedef _UniformRandomNumberGenerator engine_type;
+		typedef typename UniformRandomNumberGenerator::result_type result_type;
+
+		typedef UniformRandomNumberGenerator engine_type;
 		typedef ::std::uniform_int_distribution<result_type> distribution_type;
 
 
 		typename engine_type::result_type gen() {
 			return _distribution(_generator);
 		}
-		
+
 	public:
 
 		explicit random_uuid_generator(result_type seed = engine_type::default_seed)
@@ -27,40 +27,40 @@ namespace uuids {
 			, _distribution(
 				std::numeric_limits<result_type>::min(),
 				std::numeric_limits<result_type>::max()) {}
-			
-		template <typename _SeedSequence>
-		explicit random_uuid_generator(_SeedSequence& q) 
+
+		template <typename SeedSequence>
+		explicit random_uuid_generator(SeedSequence& q)
 			: _generator(q)
 			, _distribution(
 				std::numeric_limits<result_type>::min(),
 				std::numeric_limits<result_type>::max()) {}
-		
+
 		uuid operator ()() {
 			std::uint8_t bytes[uuid::size()];
-			
+
 			std::size_t i = 0;
 			result_type val = gen();
-			
+
 			for (uuid::value_type& elem : bytes) {
 				if (i == sizeof(result_type)) {
 					val = gen(); i = 0;
 				}
-				
+
 				elem = static_cast<uuid::value_type>(
 					(val >> (i++*8)) & 0xff);
 			}
-			
+
 			// set the variant.
 			bytes[8] &= 0xbf;
 			bytes[8] |= 0x80;
-			
+
 			// set the version.
 			bytes[6] &= 0x4f;
 			bytes[6] |= 0x40;
-			
+
 			return uuid(std::begin(bytes), std::end(bytes));
 		}
-		
+
 	private:
 		engine_type _generator;
 		distribution_type _distribution;
