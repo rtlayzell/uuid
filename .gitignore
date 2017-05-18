@@ -1,14 +1,45 @@
+# Prerequisites
+*.d
 
-# Binaries output directories.
-[Bb]uild/
-[Dd]ebug/
-[Rr]elease/
-[Oo]bj/
-[Vv]studio/
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
 
-# Windows batch scripts.
-*.bat
+# Precompiled Headers
+*.gch
+*.pch
 
-# Premake generated make files.
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Visual Studio Code
+.vscode
+
+# CMake Generated Files
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
 Makefile
-*.make
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
