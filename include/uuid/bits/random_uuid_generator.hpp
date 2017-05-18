@@ -42,12 +42,8 @@ namespace uuids {
 			result_type val = gen();
 
 			for (uuid::value_type& elem : bytes) {
-				if (i == sizeof(result_type)) {
-					val = gen(); i = 0;
-				}
-
-				elem = static_cast<uuid::value_type>(
-					(val >> (i++*8)) & 0xff);
+				if (i == sizeof(result_type)) { val = gen(); i = 0; }
+				elem = static_cast<uuid::value_type>((val >> (i++*8)) & 0xff);
 			}
 
 			// set the variant.
